@@ -79,18 +79,18 @@ var (
 func init() {
 	pctx.Import("github.com/google/blueprint/bootstrap")
 
-	exportedVars.ExportStringStaticVariable("JavacHeapSize", "4096M")
+	exportedVars.ExportStringStaticVariable("JavacHeapSize", "12288M")
 	exportedVars.ExportStringStaticVariable("JavacHeapFlags", "-J-Xmx${JavacHeapSize}")
 
 	// ErrorProne can use significantly more memory than javac alone, give it a higher heap
 	// size (b/221480398).
-	exportedVars.ExportStringStaticVariable("ErrorProneHeapSize", "8192M")
+	exportedVars.ExportStringStaticVariable("ErrorProneHeapSize", "12288M")
 	exportedVars.ExportStringStaticVariable("ErrorProneHeapFlags", "-J-Xmx${ErrorProneHeapSize}")
 
 	// D8 invocations are shorter lived, so we restrict their JIT tiering relative to R8.
 	// Note that the `-JXX` prefix syntax is specific to the R8/D8 invocation wrappers.
 	exportedVars.ExportStringListStaticVariable("D8Flags", append([]string{
-		"-JXmx4096M",
+		"-JXmx12288M",
 		"-JXX:+TieredCompilation",
 		"-JXX:TieredStopAtLevel=1",
 		"-JDcom.android.tools.r8.emitRecordAnnotationsInDex",
@@ -98,7 +98,7 @@ func init() {
 		"-JDcom.android.tools.r8.emitRecordAnnotationsExInDex",
 	}, dexerJavaVmFlagsList...))
 	exportedVars.ExportStringListStaticVariable("R8Flags", append([]string{
-		"-JXmx2048M",
+		"-JXmx12288M",
 		"-JDcom.android.tools.r8.emitRecordAnnotationsInDex",
 		"-JDcom.android.tools.r8.emitPermittedSubclassesAnnotationsInDex",
 		"-JDcom.android.tools.r8.emitRecordAnnotationsExInDex",

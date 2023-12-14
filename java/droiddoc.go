@@ -526,7 +526,7 @@ func (j *Javadoc) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		deps.systemModules, deps.classpath, j.sourcepaths)
 
 	cmd.FlagWithArg("-source ", javaVersion.String()).
-		Flag("-J-Xmx1024m").
+		Flag("-J-Xmx12288m").
 		Flag("-XDignore.symbol.file").
 		Flag("-Xdoclint:none")
 
@@ -599,7 +599,7 @@ func (d *Droiddoc) doclavaDocsFlags(ctx android.ModuleContext, cmd *android.Rule
 	// sources, droiddoc will get sources produced by metalava which will have already stripped out the
 	// 1.9 language features.
 	cmd.FlagWithArg("-source ", getStubsJavaVersion().String()).
-		Flag("-J-Xmx1600m").
+		Flag("-J-Xmx12288m").
 		Flag("-J-XX:-OmitStackTraceInFastThrow").
 		Flag("-XDignore.symbol.file").
 		Flag("--ignore-source-errors").
